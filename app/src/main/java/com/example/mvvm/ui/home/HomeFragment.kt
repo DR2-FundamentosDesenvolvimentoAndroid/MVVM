@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.mvvm.R
+import com.example.mvvm.ViewMoldel.UsuarioViewModel
 
 class HomeFragment : Fragment() {
 
@@ -27,5 +30,18 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var ususarioViewModel: UsuarioViewModel? = null
+        activity?.let {
+            ususarioViewModel = ViewModelProviders.of(it)[UsuarioViewModel::class.java]
+        }
+
+        Toast.makeText(this.context!!.applicationContext,
+            ususarioViewModel!!.usuario!!.nome,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
